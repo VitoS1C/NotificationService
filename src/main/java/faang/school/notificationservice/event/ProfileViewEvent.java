@@ -10,7 +10,7 @@ import static com.fasterxml.jackson.annotation.JsonFormat.*;
 
 @Data
 @Builder
-public class ProfileViewEventDto {
+public class ProfileViewEvent {
     private Long senderId;
     private Long receiverId;
     @JsonFormat(shape = Shape.STRING)

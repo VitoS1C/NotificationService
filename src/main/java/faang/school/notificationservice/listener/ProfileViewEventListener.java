@@ -1,27 +1,25 @@
-package faang.school.notificationservice.subscriber;
+package faang.school.notificationservice.listener;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import faang.school.notificationservice.client.UserServiceClient;
+import faang.school.notificationservice.event.ProfileViewEvent;
 import faang.school.notificationservice.messaging.MessageBuilder;
 import faang.school.notificationservice.service.NotificationService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.stereotype.Component;
-import faang.school.notificationservice.event.ProfileViewEventDto;
+import reactor.util.annotation.NonNull;
 
 import java.util.List;
 import java.util.Locale;
 
 @Component
-public class ProfileViewEventListener extends AbstractEventListener<ProfileViewEventDto> implements MessageListener {
-    Logger logger = LoggerFactory.getLogger(ProfileViewEventListener.class);
+public class ProfileViewEventListener extends AbstractEventListener<ProfileViewEvent> implements MessageListener {
 
     public ProfileViewEventListener(
             ObjectMapper objectMapper,
             UserServiceClient userServiceClient,
-            MessageBuilder<ProfileViewEventDto> messageBuilder,
+            MessageBuilder<ProfileViewEvent> messageBuilder,
             List<NotificationService> notificationServices) {
         super(
                 objectMapper,
@@ -32,8 +30,8 @@ public class ProfileViewEventListener extends AbstractEventListener<ProfileViewE
     }
 
     @Override
-    public void onMessage(Message message, byte[] pattern) {
-        ProfileViewEventDto profileViewEvent = handleEvent(message, ProfileViewEventDto.class);
+    public void onMessage(@NonNull Message message, byte[] pattern) {
+        ProfileViewEvent profileViewEvent = handleEvent(message, ProfileViewEvent.class);
         String text = getMessage(profileViewEvent, Locale.getDefault());
         sendNotification(profileViewEvent.getReceiverId(), text);
     }

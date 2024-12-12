@@ -17,8 +17,7 @@ public class SmsValidator {
                 log.error("Message failed with error. Status: {}, Error message: {}",
                         response.getMessages().get(0).getStatus(),
                         response.getMessages().get(0).getErrorText());
-                throw new SmsException("Message failed with error: " + response.getMessages().get(0).getErrorText(),
-                        response.getMessages().get(0).getStatus());
+                throw new SmsException("Message failed with error: " + response.getMessages().get(0).getErrorText());
             }
         }
     }

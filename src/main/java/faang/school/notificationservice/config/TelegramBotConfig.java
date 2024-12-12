@@ -24,7 +24,7 @@ public class TelegramBotConfig {
             botsApi.registerBot(telegramBot);
             log.info("Bot initial configuration set");
         } catch (TelegramApiException e) {
-            log.error("Error during defining Bot: {}", e);
+            log.error("Error during defining Bot", e);
             throw new RuntimeException(e);
         }
     }
