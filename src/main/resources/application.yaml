@@ -1,0 +1,65 @@
+spring:
+  data:
+    redis:
+      port: 6379
+      host: localhost
+      channel:
+        profile: profile_channel
+        event-starter: event_start_channel
+        mentorship-offered: mentorship_offered_channel
+        recommendation-received: recommendation_received_channel
+        follow-project: project_subscription_event
+        comment-receiving:
+          name: comment-receiving-topic
+          goal-completed-event-channel:
+            name: goal_completed_event_channel
+        follower-event-channel: follower_event_channel
+        skill-acquired: skill_acquired_channel
+        recommendation-request-channel: recommendation_req_channel
+        like: like_channel
+        mentorship-accepted-event-channel: mentorship_accepted_event_channel
+
+  mail:
+
+    host: smtp.gmail.com
+    port: 587
+    username: test@test.com #https://www.baeldung.com/spring-email
+    password: your password #генерируем для своего Google аккаунта по инструкции https://support.google.com/accounts/answer/185833
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
+  messages:
+    basename: messages
+
+server:
+  port: 8083
+
+logging:
+  level:
+    root: info
+
+#Можно зарегистрировать аккаунт без привязки карты. Будет 2 евро на отправку тестовых SMS
+vonage: #https://dashboard.nexmo.com/getting-started/sms
+  api:
+    key: whatever
+    secret: whatever
+    band: CorporationX
+
+project-service:
+  host: localhost
+  port: 8082
+user-service:
+  host: localhost
+  port: 8080
+
+telegram:
+  bot:
+    name: CorporationX
+    token: 8167229648:AAFcS_pIvH9qvgNloxDSbHPfjCQJF6O-go4
